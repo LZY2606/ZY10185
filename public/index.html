@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>流场证言板</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>流场证言板</h1>
+        <p>原始矢量 · 检查证据 · 替换来源 · 派生场严格分层</p>
+      </div>
+      <div class="header-actions">
+        <button id="reimport">清空并重新导入 fixture</button>
+        <a id="exportRun" class="button" href="#" target="_blank">导出本次运行</a>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="panel controls">
+        <h2>检查组合</h2>
+        <label><input type="checkbox" data-check="median" checked /> 中值残差</label>
+        <label><input type="checkbox" data-check="peakRatio" checked /> 相关峰比</label>
+        <label><input type="checkbox" data-check="velocityRange" checked /> 速度范围</label>
+        <label><input type="checkbox" data-check="temporal" checked /> 时间一致性</label>
+
+        <label>中值残差阈值 <input type="number" step="0.1" id="medianThreshold" value="2.5" /></label>
+        <label>峰比下限 <input type="number" step="0.1" id="peakRatioThreshold" value="1.5" /></label>
+        <label>速率上限 <input type="number" step="0.1" id="speedThreshold" value="8" /></label>
+        <label>时间分量差 <input type="number" step="0.1" id="temporalThreshold" value="3" /></label>
+        <label>最少支持邻点 <input type="number" step="1" min="1" id="minimumNeighbors" value="3" /></label>
+
+        <label>无效点修复
+          <select id="repair">
+            <option value="leave">留空</option>
+            <option value="interpolate" selected>局部插值</option>
+            <option value="previous">引用上一帧</option>
+          </select>
+        </label>
+        <label>导数使用场版本
+          <select id="fieldVersion">
+            <option value="raw">仅原始通过点</option>
+            <option value="repaired" selected>修复后选定场</option>
+          </select>
+        </label>
+        <button id="runAnalysis">运行检查并重放</button>
+
+        <h2>图层</h2>
+        <label><input type="checkbox" id="layerRaw" checked /> 原始矢量</label>
+        <label><input type="checkbox" id="layerInspection" checked /> 检查结果</label>
+        <label><input type="checkbox" id="layerReplacement" checked /> 替换值</label>
+        <label><input type="checkbox" id="layerDerived" checked /> 涡量/散度标记</label>
+        <p class="hint">点击任意网格点查看 8 邻域、失败原因、修复方法和支持点集。边界不环绕取点。</p>
+      </aside>
+
+      <section class="workspace">
+        <div class="toolbar panel">
+          <div>
+            <label>帧 <select id="frameSelect"></select></label>
+            <span id="summary" class="summary"></span>
+          </div>
+        </div>
+        <div class="panel canvas-wrap">
+          <canvas id="board" width="980" height="640"></canvas>
+        </div>
+      </section>
+
+      <aside class="panel details">
+        <h2>点证言</h2>
+        <div id="details"><p>尚未选择矢量。</p></div>
+      </aside>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

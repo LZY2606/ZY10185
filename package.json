@@ -1,0 +1,25 @@
+{
+  "name": "flow-field-testimony-board",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit",
+    "import-fixture": "tsx src/cli/import-fixture.ts",
+    "db:reset": "tsx src/cli/import-fixture.ts --reset"
+  },
+  "dependencies": {
+    "better-sqlite3": "latest",
+    "canvas": "latest"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "latest",
+    "@types/node": "latest",
+    "tsx": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "packageManager": "pnpm@12.5.1"
+}
